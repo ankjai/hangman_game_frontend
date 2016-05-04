@@ -1,15 +1,12 @@
 var AppView = Backbone.View.extend({
-    // el
-    el: '#container',
-    // initialize
+    el: '#gameboard',
     initialize: function() {
-        // body...
         this.render();
     },
-    // render
     render: function() {
-        // body...
-        this.$el.html("<h1>hello</h1>");
+        $("#login").empty();
+        this.$el.html("appView content will be rendered here - update");
+        return this;
     }
 });
 
