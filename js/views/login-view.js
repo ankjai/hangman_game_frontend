@@ -11,8 +11,18 @@ var LoginView = Backbone.View.extend({
         this.render();
     },
     render: function() {
+        // clean up
         $("#gameboard").empty();
+        $("#score").empty();
+        $("#profile").empty();
+
+        // update nav class
+        $("#game-li").attr('class', '');
+        $("#score-li").attr('class', '');
+        $("#profile-li").attr('class', '');
+
         this.$el.html(this.template);
+        
         return this;
     }
 });
