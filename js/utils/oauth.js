@@ -74,6 +74,6 @@ function updateUserModel(jqXHR) {
     });
 
     // once user model is set
-    // redirect page to game board
-    window.location.href = '#game';
+    // render game view
+    appView.render();
 }

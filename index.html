@@ -14,8 +14,17 @@
         <h1>Hangman Game</h1>
         <hr/>
         <div class="row">
+            <div class="col-md-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li id="game-li" role="presentation"><a href="#game">Game</a></li>
+                    <li id="score-li" role="presentation"><a href="#score">Score</a></li>
+                    <li id="profile-li" role="presentation"><a href="#profile">Profile</a></li>
+                </ul>
+            </div>
             <div id="login"></div>
             <div id="gameboard"></div>
+            <div id="score"></div>
+            <div id="profile"></div>
         </div>
     </div>
     <!-- Libraries -->
@@ -39,14 +48,32 @@
             </form>
         </div>
     </script>
+    <script type="text/template" id="profile-template">
+        <div class="col-md-4">
+            <h5>UPDATE PROFILE</h5>
+            <hr/>
+            <!-- <img src="<%= image_url %>" alt="profile pic" class="img-thumbnail"> -->
+            <form>
+                <div class="form-group">
+                    <label for="displayName">Display Name:</label>
+                    <input type="text" class="form-control" id="displayName" placeholder="<%= name %>">
+                </div>
+                <a class="btn btn-default">
+                    <span>Update</span>
+                </a>
+            </form>
+        </div>
+    </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="js/utils/api.js" type="text/javascript"></script>
-    <script src="/js/models/user-model.js" type="text/javascript"></script>
-    <script src="/js/utils/oauth.js" type="text/javascript"></script>
-    <script src="/js/collections/user.js" type="text/javascript"></script>
-    <script src="/js/views/app-view.js" type="text/javascript"></script>
-    <script src="/js/views/login-view.js" type="text/javascript"></script>
-    <script src="/js/routes/router.js" type="text/javascript"></script>
+    <script src="js/models/user-model.js" type="text/javascript"></script>
+    <script src="js/utils/oauth.js" type="text/javascript"></script>
+    <script src="js/collections/user.js" type="text/javascript"></script>
+    <script src="js/views/game-view.js" type="text/javascript"></script>
+    <script src="js/views/login-view.js" type="text/javascript"></script>
+    <script src="js/views/score-view.js" type="text/javascript"></script>
+    <script src="js/views/profile-view.js" type="text/javascript"></script>
+    <script src="js/routes/router.js" type="text/javascript"></script>
 </body>
 
 </html>
