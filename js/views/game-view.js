@@ -1,6 +1,7 @@
 var AppView = Backbone.View.extend({
     el: '#gameboard',
     initialize: function() {
+        // TODO: REMOVE THIS RENDER
         this.render();
     },
     render: function() {

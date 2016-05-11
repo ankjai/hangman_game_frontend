@@ -8,6 +8,7 @@ var LoginView = Backbone.View.extend({
     },
     template: _.template($('#login-template').html()),
     initialize: function() {
+        // TODO: REMOVE THIS RENDER
         this.render();
     },
     render: function() {
