@@ -4,34 +4,32 @@ var ProfileView = Backbone.View.extend({
         'click .btn-default': 'updateProfile'
     },
     updateProfile: function(e) {
-        // api call to update user backend
-        apiCall('/user/v1/update_user', 'POST', {
+        apiCall('/user/v1/update_user',
+            'POST',
+            'json', {
                 "current_user_name": user.get('email_address'),
                 "display_name": $('#displayName').val()
-            })
-            .done(function(data, textStatus, jqXHR) {
-                // successfully updated user display_name 
-                // in backend through api
-                // now set user model
-                user.set({
-                    'name': jqXHR.responseJSON.display_name
-                });
+            },
+            this.setUserModelCallback,
+            null
+        );
+    },
+    setUserModelCallback: function(data, textStatus, jqXHR) {
+        console.log('in setUserModelCallback');
+        user.set({
+            'name': data['display_name']
+        });
+        // alert user that update happened
+        // TODO: REPLACE IT W/ FLASH MSG
+        alert('Display name updated: ' + user.get('name'));
 
-                // alert user that update happened
-                // TODO: REPLACE IT W/ FLASH MSG
-                alert('Display name updated: ' + user.get('name'));
-
-                // once backend and user model is set
-                // render profile page again
-                profileView.render();
-            })
-            .fail(function(jqXHR, textStatus, errorThrown) {
-                console.log('ERROR:' + textStatus + ' ' + errorThrown);
-                // console.log(jqXHR);
-            });
+        // once backend and user model is set
+        // render profile page again
+        profileView.render();
     },
     template: _.template($('#profile-template').html()),
     initialize: function() {
+        // TODO: REMOVE THIS RENDER
         this.render();
     },
     render: function() {

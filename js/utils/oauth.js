@@ -1,3 +1,5 @@
+var OauthRespObj;
+
 var auth = function() {
     var config = {
         'client_id': '207570027739-6amtrcj0ev0mlia7qogujtpk6iju2oqk.apps.googleusercontent.com',
@@ -23,54 +25,33 @@ function makeApiCall() {
         });
 
         request.then(function(resp) {
-            var name = resp.result.name.givenName + ' ' + resp.result.name.familyName;
-            var email_address = resp.result.emails[0].value;
-            var image_url = resp.result.image.url;
+            OauthRespObj = resp;
 
             // set image url to user model
             user.set({
-                'image_url': image_url
+                'image_url': OauthRespObj.result.image.url
             });
 
-            // check if user exists
-            var jqXHRGetUser = apiCall('/user/v1/get_user', 'POST', { "user_name": email_address });
-            jqXHRGetUser
-                .done(function(data, textStatus, jqXHR) {
-                    // user exists
-                    // do not recreate user thru api
-                    console.log('user exists');
-                    updateUserModel(jqXHR);
-                })
-                .fail(function(jqXHR, textStatus, errorThrown) {
-                    // user does not exists
-                    // create user for 1st time thru api
-                    console.log('user does not exists');
-
-                    var jqXHRUserCreated = apiCall('/user/v1/create_user', 'POST', {
-                        "display_name": name,
-                        "email": email_address,
-                        "user_name": email_address
-                    });
-                    jqXHRUserCreated
-                        .done(function(data, textStatus, jqXHR) {
-                            // user created
-                            console.log('user created' + textStatus);
-                            updateUserModel(jqXHR);
-                        })
-                        .fail(function(jqXHR, textStatus, errorThrown) {
-                            // error while user creation
-                            console.log('ERROR while user creation:' + errorThrown);
-                        });
-                });
+            // make api call
+            apiCall('/user/v1/get_user', 'POST', 'json', { "user_name": OauthRespObj.result.emails[0].value }, updateUserModel, newUserCallback);
         });
     });
 }
 
-function updateUserModel(jqXHR) {
+function newUserCallback() {
+    apiCall('/user/v1/create_user', 'POST', 'json', {
+        "display_name": OauthRespObj.result.name.givenName + ' ' + OauthRespObj.result.name.familyName,
+        "email": OauthRespObj.result.emails[0].value,
+        "user_name": OauthRespObj.result.emails[0].value
+    }, updateUserModel, null);
+}
+
+function updateUserModel(data, textStatus, jqXHR) {
+    console.log('in updateUserModel');
     // set user info
     user.set({
-        'name': jqXHR.responseJSON.display_name,
-        'email_address': jqXHR.responseJSON.email
+        'name': data['display_name'],
+        'email_address': data['email']
     });
 
     // once user model is set
