@@ -4,24 +4,18 @@ var ProfileView = Backbone.View.extend({
         'click .btn-default': 'updateProfile'
     },
     updateProfile: function(e) {
-        apiCall('/user/v1/update_user',
-            'POST',
-            'json', {
-                "current_user_name": user.get('email_address'),
-                "display_name": $('#displayName').val()
-            },
-            this.setUserModelCallback,
-            null
-        );
-    },
-    setUserModelCallback: function(data, textStatus, jqXHR) {
-        console.log('in setUserModelCallback');
+        // update user model
         user.set({
-            'name': data['display_name']
+            'display_name': $('#displayName').val()
         });
+
+        // will call 'update' as 
+        // user id is set
+        user.save();
+
         // alert user that update happened
         // TODO: REPLACE IT W/ FLASH MSG
-        alert('Display name updated: ' + user.get('name'));
+        alert('Display name updated: ' + user.get('display_name'));
 
         // once backend and user model is set
         // render profile page again
@@ -43,7 +37,7 @@ var ProfileView = Backbone.View.extend({
         $("#score-li").attr('class', '');
         $("#profile-li").attr('class', 'active');
 
-        this.$el.html(this.template({ image_url: user.get('image_url'), name: user.get('name') }));
+        this.$el.html(this.template({ image_url: user.get('image_url'), name: user.get('display_name') }));
 
         return this;
     }
