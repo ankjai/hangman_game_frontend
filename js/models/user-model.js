@@ -24,6 +24,9 @@ var UserModel = Backbone.Model.extend({
             case 'read':
                 options.url = BASE_URL + '/user/v1/get_user';
                 options.method = "POST";
+                options.data = JSON.stringify({
+                    'user_name': model.attributes.user_name
+                })
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);
@@ -52,6 +55,10 @@ var UserModel = Backbone.Model.extend({
 
             // render app view
             appView.render();
+
+            // fetch user from DB if user exists
+            // to get things that are updated like display_name
+            user.fetch();
         } else {
             msg = 'Uncaught Error.\n' + jqXHR.responseText;
             console.error(msg);

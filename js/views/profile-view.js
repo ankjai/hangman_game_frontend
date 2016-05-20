@@ -19,28 +19,22 @@ var ProfileView = Backbone.View.extend({
 
         // once backend and user model is set
         // render profile page again
-        profileView.render();
+        appView.profileView.render();
     },
     template: _.template($('#profile-template').html()),
-    initialize: function() {
-        // TODO: REMOVE THIS RENDER
-        this.render();
-    },
+    initialize: function() {},
     render: function() {
         // clean up
-        $("#login").empty();
-        $("#gameboard").empty();
-        $("#score").empty();
+        $("#board").empty();
+        $("#game").empty();
 
         // update nav class
-        $("#game-li").attr('class', '');
-        $("#score-li").attr('class', '');
+        $("#board-li").attr('class', '');
         $("#profile-li").attr('class', 'active');
+        $("#game-li").attr('class', '');
 
-        this.$el.html(this.template({ image_url: user.get('image_url'), name: user.get('display_name') }));
+        this.$el.html(this.template({ display_name: user.get('display_name') }));
 
         return this;
     }
 });
-
-var profileView = new ProfileView();

@@ -1,3 +1,26 @@
 * {
     /* border: solid black 1px !important; */
 }
+
+#left-nav-profile-info {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#profile-stats {
+    text-align: center;
+}
+
+#profile-stats div {
+    width: 33%;
+}
+
+#profile-stats strong {
+    display: block;
+    font-size: xx-large;
+    color: #4078c0;
+}
+
+#profile-stats span {
+    color: gray;
+}
