@@ -7,23 +7,10 @@ var LoginView = Backbone.View.extend({
         auth();
     },
     template: _.template($('#login-template').html()),
-    initialize: function() {
-        // TODO: REMOVE THIS RENDER
-        this.render();
-    },
+    initialize: function() {},
     render: function() {
-        // clean up
-        $("#gameboard").empty();
-        $("#score").empty();
-        $("#profile").empty();
-
-        // update nav class
-        $("#game-li").attr('class', '');
-        $("#score-li").attr('class', '');
-        $("#profile-li").attr('class', '');
-
         this.$el.html(this.template);
-        
+
         return this;
     }
 });

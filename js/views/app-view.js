@@ -1,9 +1,15 @@
-var rankingsObjArray = [];
-
-var ScoreView = Backbone.View.extend({
-    'el': '#score',
-    template: _.template($('#score-template').html()),
+var AppView = Backbone.View.extend({
+    el: '#app',
+    template: _.template($('#app-template').html()),
     initialize: function() {
+        /**
+         * the rankingsObjArray will be consumed by boardView.render(),
+         * but since boardView is subview of appView and boardView initialized
+         * function wont be called until appView.render(), it is logical to prep
+         * rankingsObjArray in appView.initialize() as data will be ready
+         * when we call boardView.render()
+         */
+
         // execute this function once leaderboard
         // obj is fetched
         setTimeout(function() {
@@ -34,20 +40,24 @@ var ScoreView = Backbone.View.extend({
     render: function() {
         // clean up
         $("#login").empty();
-        $("#gameboard").empty();
-        $("#profile").empty();
-
-        // update nav class
-        $("#game-li").attr('class', '');
-        $("#score-li").attr('class', 'active');
-        $("#profile-li").attr('class', '');
 
         this.$el.html(this.template({
-            rankings: rankingsObjArray
+            image_url: user.get('image_url'),
+            display_name: user.get('display_name'),
+            email: user.get('email'),
+            user_name: getUserNameFromEmail(user.get('user_name'))
         }));
+
+        // create/initialize subviews here
+        this.boardView = new BoardView();
+        this.profileView = new ProfileView();
+        this.gameView = new GameView();
+
+        // render board 
+        this.boardView.render();
 
         return this;
     }
 });
 
-var scoreView = new ScoreView();
+var appView = new AppView();
