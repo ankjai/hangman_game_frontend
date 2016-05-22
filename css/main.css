@@ -24,3 +24,20 @@
 #profile-stats span {
     color: gray;
 }
+
+#guessed_chars,
+#enter_char {
+    display: flex;
+}
+
+#guessed_chars input {
+    text-align: center;
+    margin: 10px;
+    width: 3em;
+}
+
+#enter_char input {
+    text-align: center;
+    width: 3em;
+    margin-left: 20px;
+}

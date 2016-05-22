@@ -26,7 +26,7 @@ var UserModel = Backbone.Model.extend({
                 options.method = "POST";
                 options.data = JSON.stringify({
                     'user_name': model.attributes.user_name
-                })
+                });
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);
@@ -41,6 +41,12 @@ var UserModel = Backbone.Model.extend({
         // increment the counter
         globalUserIdCounter++;
 
+        // new user, new game
+        // wait until backend creates user
+        setTimeout(function() {
+            newGameModel.save();
+        }, 3000);
+
         // render game view
         appView.render();
     },
@@ -52,6 +58,29 @@ var UserModel = Backbone.Model.extend({
 
             // increment the counter
             globalUserIdCounter++;
+
+            // fetch active game
+            newGameModel.fetch({
+                url: BASE_URL + '/game/v1/get_user_active_games',
+                data: JSON.stringify({
+                    'user_name': user.get('user_name')
+                }),
+                success: function(data, textStatus, jqXHR) {
+                    if (data.attributes['games'] != undefined && !data.attributes['games'][0].game_over) {
+                        // get existing game
+                        newGameModel.fetch({
+                            url: BASE_URL + '/game/v1/get_game',
+                            data: JSON.stringify({
+                                'urlsafe_key': data.attributes['games'][0].game_urlsafe_key,
+                                'user_name': user.get('user_name')
+                            })
+                        });
+                    } else {
+                        // create new game
+                        newGameModel.save();
+                    }
+                }
+            });
 
             // render app view
             appView.render();
