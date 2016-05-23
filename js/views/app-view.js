@@ -52,6 +52,7 @@ var AppView = Backbone.View.extend({
         this.boardView = new BoardView();
         this.profileView = new ProfileView();
         this.gameView = new GameView();
+        this.replayView = new ReplayView();
 
         // render board 
         this.boardView.render();

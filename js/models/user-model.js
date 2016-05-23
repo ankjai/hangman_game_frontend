@@ -82,6 +82,9 @@ var UserModel = Backbone.Model.extend({
                 }
             });
 
+            // fetch completed games
+            compGamesModel.fetch();
+
             // render app view
             appView.render();
 

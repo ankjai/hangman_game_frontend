@@ -23,6 +23,9 @@ var GameView = Backbone.View.extend({
                     // start new game
                     newGameModel.save();
 
+                    // fetch completed games
+                    compGamesModel.fetch();
+
                     // alert user game over
                     alert('Game Over! The word was: ' + word);
 
@@ -55,6 +58,7 @@ var GameView = Backbone.View.extend({
         // clean up
         $("#board").empty();
         $("#profile").empty();
+        $("#replay").empty();
 
         // update nav class
         $("#board-li").attr('class', '');

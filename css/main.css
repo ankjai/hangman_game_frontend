@@ -26,11 +26,13 @@
 }
 
 #guessed_chars,
+#guessed_chars_history,
 #enter_char {
     display: flex;
 }
 
-#guessed_chars input {
+#guessed_chars input,
+#guessed_chars_history input {
     text-align: center;
     margin: 10px;
     width: 3em;
