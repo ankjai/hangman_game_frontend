@@ -32,8 +32,7 @@ router.on('route:profile', function(page) {
 });
 
 router.on('route:game', function(page) {
-    console.log('in game route');
-    console.log(user);
+    console.log('in new game route');
     appView.gameView.render();
 });
 
