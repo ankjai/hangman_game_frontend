@@ -27,6 +27,7 @@ var ProfileView = Backbone.View.extend({
         // clean up
         $("#board").empty();
         $("#game").empty();
+        $("#replay").empty();
 
         // update nav class
         $("#board-li").attr('class', '');

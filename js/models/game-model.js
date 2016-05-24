@@ -7,7 +7,8 @@ var GameModel = Backbone.Model.extend({
                 options.method = "POST";
                 options.success = newGameModel.successCallback;
                 options.data = JSON.stringify({
-                    'user_name': user.get('user_name')
+                    'user_name': user.get('user_name'),
+                    'game_name': $.now().toString()
                 });
                 return Backbone.sync(method, model, options);
             case 'update':
@@ -51,6 +52,9 @@ var GameModel = Backbone.Model.extend({
 
         // start new game
         newGameModel.save();
+
+        // fetch completed games
+        compGamesModel.fetch();
 
         // alert user game over
         alert('Game Aborted!');

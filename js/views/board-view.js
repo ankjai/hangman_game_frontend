@@ -9,6 +9,7 @@ var BoardView = Backbone.View.extend({
         // clean up
         $("#profile").empty();
         $("#game").empty();
+        $("#replay").empty();
 
         // update nav class
         $("#board-li").attr('class', 'active');

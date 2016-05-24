@@ -3,7 +3,8 @@ var Router = Backbone.Router.extend({
         '': 'app',
         'board': 'board',
         'profile': 'profile',
-        'game': 'game'
+        'game': 'game',
+        'game-replay': 'game-replay'
     }
 });
 
@@ -34,6 +35,11 @@ router.on('route:profile', function(page) {
 router.on('route:game', function(page) {
     console.log('in new game route');
     appView.gameView.render();
+});
+
+router.on('route:game-replay', function(page) {
+    console.log('in game-replay route');
+    appView.replayView.render();
 });
 
 Backbone.history.start();

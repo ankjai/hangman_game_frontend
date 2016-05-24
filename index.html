@@ -83,13 +83,14 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Game<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#game">New Game</a></li>
-                        <li><a href="#game">Replay Game</a></li>
+                        <li><a href="#game-replay">Replay Game</a></li>
                     </ul>
                 </li>
             </ul>
             <div id="board"></div>
             <div id="profile"></div>
             <div id="game"></div>
+            <div id="replay"></div>
         </div>
     </script>
     <!-- board view template -->
@@ -161,14 +162,68 @@
             </a>
         </form>
     </script>
+    <!-- replay view template -->
+    <script type="text/template" id="replay-template">
+        <br>
+        <h5>REPLAY GAME:</h5>
+        <hr/>
+        <% if(games != undefined) {%>
+            <form>
+                <div class="form-group">
+                    <select class="form-control" id="replay-select">
+                        <% for (var i = 0; i < games.length; i++) { %>
+                            <option value="<%= games[i].game_urlsafe_key %>">
+                                <%= games[i].game_name %>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+                <a class="btn btn-default" id="replay-btn">
+                    <span>Replay Game</span>
+                </a>
+            </form>
+            <% } else { %>
+                <p>No completed games to show replay.</p>
+                <% } %>
+                    <div id="game-replay"></div>
+    </script>
+    <!-- game-replay view template -->
+    <script type="text/template" id="game-replay-template">
+        <br>
+        <h5>GAME STEPS:</h5>
+        <hr/>
+        <% if(steps != undefined) {%>
+            <% for (var i = 0; i < steps.length; i++) { %>
+                <h6>Step: <%= i %></h6>
+                <p>Word: <span><%= steps[i].word %></span></p>
+                <p>Game Status: <span><%= steps[i].game_status %></span></p>
+                <p>Guesses Left: <span><%= steps[i].guesses_left %></span> out of 6</p>
+                <p>Step Char: <span><%= steps[i].step_char %></span></p>
+                <form>
+                    <div class="form-group" id="guessed_chars_history">
+                        <% for (var j = 0; j < steps[i].guessed_chars_of_word.length; j++) { %>
+                            <input type="text" class="form-control input-sm" placeholder="<%= steps[i].guessed_chars_of_word[j] %>" size="1" readonly>
+                            <% } %>
+                    </div>
+                </form>
+                <hr/>
+                <% } %>
+                    <% } else { %>
+                        <p>No steps to show replay.</p>
+                        <% } %>
+    </script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
     <!-- models -->
     <script src="js/models/user-model.js" type="text/javascript"></script>
     <script src="js/models/leaderboard-model.js" type="text/javascript"></script>
     <script src="js/models/game-model.js" type="text/javascript"></script>
+    <script src="js/models/comp-games-model.js" type="text/javascript"></script>
+    <script src="js/models/game-history-model.js" type="text/javascript"></script>
     <!-- oauth -->
     <script src="js/utils/oauth.js" type="text/javascript"></script>
     <!-- views -->
+    <script src="js/views/game-replay-view.js" type="text/javascript"></script>
+    <script src="js/views/replay-view.js" type="text/javascript"></script>
     <script src="js/views/game-view.js" type="text/javascript"></script>
     <script src="js/views/board-view.js" type="text/javascript"></script>
     <script src="js/views/profile-view.js" type="text/javascript"></script>
