@@ -8,6 +8,7 @@ var UserModel = Backbone.Model.extend({
                 options.url = BASE_URL + '/user/v1/create_user';
                 options.success = user.successCallback;
                 options.error = user.errorCallback;
+                options.complete = user.completeCallback;
                 return Backbone.sync(method, model, options);
             case 'update':
                 options.url = BASE_URL + '/user/v1/update_user';
@@ -46,9 +47,6 @@ var UserModel = Backbone.Model.extend({
         setTimeout(function() {
             newGameModel.save();
         }, 3000);
-
-        // render game view
-        appView.render();
     },
     errorCallback: function(jqXHR, textStatus, errorThrown) {
         if (jqXHR.status == 409) {
@@ -61,9 +59,10 @@ var UserModel = Backbone.Model.extend({
 
             // fetch active game
             newGameModel.fetch({
-                url: BASE_URL + '/game/v1/get_user_active_games',
+                url: BASE_URL + '/game/v1/get_user_games',
                 data: JSON.stringify({
-                    'user_name': user.get('user_name')
+                    'user_name': user.get('user_name'),
+                    "game_status": "IN_SESSION"
                 }),
                 success: function(data, textStatus, jqXHR) {
                     if (data.attributes['games'] != undefined && !data.attributes['games'][0].game_over) {
@@ -85,9 +84,6 @@ var UserModel = Backbone.Model.extend({
             // fetch completed games
             compGamesModel.fetch();
 
-            // render app view
-            appView.render();
-
             // fetch user from DB if user exists
             // to get things that are updated like display_name
             user.fetch();
@@ -98,6 +94,36 @@ var UserModel = Backbone.Model.extend({
             // render login view
             loginView.render();
         }
+    },
+    completeCallback: function(jqXHR, textStatus) {
+        console.log('in completeCallback');
+        // get user ranking
+        rankingModel.fetch({
+            success: function(data, textStatus, jqXHR) {
+                // render game view
+                appView.render();
+            }
+        });
+
+        // get user high score
+        hsModel.fetch({
+            success: function(data, textStatus, jqXHR) {
+                // render game view
+                appView.render();
+            }
+        });
+
+        // get user wins
+        winsModel.fetch({
+            success: function(data, textStatus, jqXHR) {
+                // render game view
+                appView.render();
+            }
+        });
+
+        // render game view
+        appView.render();
+
     }
 });
 
