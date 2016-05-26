@@ -60,15 +60,15 @@
             <hr/>
             <div id="profile-stats" style="display:flex;">
                 <div>
-                    <strong>10</strong>
+                    <strong><%= user_ranking %></strong>
                     <span>rank</span>
                 </div>
                 <div>
-                    <strong>7</strong>
+                    <strong><%= user_high_score %></strong>
                     <span>high score</span>
                 </div>
                 <div>
-                    <strong>9</strong>
+                    <strong><%= user_wins %></strong>
                     <span>wins</span>
                 </div>
             </div>
@@ -214,6 +214,9 @@
     </script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
     <!-- models -->
+    <script src="js/models/wins-model.js" type="text/javascript"></script>
+    <script src="js/models/hs-model.js" type="text/javascript"></script>
+    <script src="js/models/ranking-model.js" type="text/javascript"></script>
     <script src="js/models/user-model.js" type="text/javascript"></script>
     <script src="js/models/leaderboard-model.js" type="text/javascript"></script>
     <script src="js/models/game-model.js" type="text/javascript"></script>

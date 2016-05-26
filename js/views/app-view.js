@@ -41,11 +41,32 @@ var AppView = Backbone.View.extend({
         // clean up
         $("#login").empty();
 
+        // user ranking
+        var userRanking = 0;
+        if (rankingModel.get('user_ranking')) {
+            userRanking = rankingModel.get('user_ranking');
+        }
+
+        // user hs
+        var userHighScore = 0;
+        if (hsModel.get('items')) {
+            userHighScore = hsModel.get('items')[0].game_score;
+        }
+
+        // user wins
+        var userWins = 0;
+        if (winsModel.get('games')) {
+            userWins = winsModel.get('games').length;
+        }
+
         this.$el.html(this.template({
             image_url: user.get('image_url'),
             display_name: user.get('display_name'),
             email: user.get('email'),
-            user_name: getUserNameFromEmail(user.get('user_name'))
+            user_name: getUserNameFromEmail(user.get('user_name')),
+            user_ranking: userRanking,
+            user_high_score: userHighScore,
+            user_wins: userWins
         }));
 
         // create/initialize subviews here
