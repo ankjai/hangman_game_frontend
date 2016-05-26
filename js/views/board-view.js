@@ -16,9 +16,24 @@ var BoardView = Backbone.View.extend({
         $("#profile-li").attr('class', '');
         $("#game-li").attr('class', '');
 
+        // user top scores
+        var userTopScores = [];
+        if (tsModel.get('items')) {
+            for (var i = 0; i < tsModel.get('items').length; i++) {
+                if (i >= 5) {
+                    break;
+                };
+                if (tsModel.get('items')[i].game_score <= 0) {
+                    break;
+                };
+                userTopScores.push(tsModel.get('items')[i]);
+            }
+        }
+
         // TODO:shld this 'el' be appended to appView
         this.$el.html(this.template({
-            rankings: rankingsObjArray
+            rankings: rankingsObjArray,
+            topScores: userTopScores
         }));
 
         return this;
