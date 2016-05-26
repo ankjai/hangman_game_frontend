@@ -100,7 +100,7 @@ var UserModel = Backbone.Model.extend({
         // get user ranking
         rankingModel.fetch({
             success: function(data, textStatus, jqXHR) {
-                // render game view
+                // render app view
                 appView.render();
             }
         });
@@ -108,7 +108,7 @@ var UserModel = Backbone.Model.extend({
         // get user high score
         hsModel.fetch({
             success: function(data, textStatus, jqXHR) {
-                // render game view
+                // render app view
                 appView.render();
             }
         });
@@ -116,8 +116,16 @@ var UserModel = Backbone.Model.extend({
         // get user wins
         winsModel.fetch({
             success: function(data, textStatus, jqXHR) {
-                // render game view
+                // render app view
                 appView.render();
+            }
+        });
+
+        // get user wins
+        tsModel.fetch({
+            success: function(data, textStatus, jqXHR) {
+                // render board view
+                appView.boardView.render();
             }
         });
 

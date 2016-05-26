@@ -121,6 +121,37 @@
                     <% } %>
             </tbody>
         </table>
+        <br>
+        <table class="table">
+            <br>
+            <caption>User Top Scores:</caption>
+            <% if(topScores.length > 0) { %>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Game Score</th>
+                        <th>Score Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i < topScores.length; i++) { %>
+                        <tr>
+                            <td>#
+                                <%= i + 1 %>
+                            </td>
+                            <td>
+                                <%= topScores[i].game_score %>
+                            </td>
+                            <td>
+                                <%= topScores[i].score_id %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+                <% } else { %>
+                    <p>No games played to show top scores.</p>
+                    <% } %>
+        </table>
     </script>
     <!-- profile view template -->
     <script type="text/template" id="profile-template">
@@ -214,6 +245,7 @@
     </script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
     <!-- models -->
+    <script src="js/models/user-topscores-model.js" type="text/javascript"></script>
     <script src="js/models/wins-model.js" type="text/javascript"></script>
     <script src="js/models/hs-model.js" type="text/javascript"></script>
     <script src="js/models/ranking-model.js" type="text/javascript"></script>
