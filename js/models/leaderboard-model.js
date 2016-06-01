@@ -9,6 +9,7 @@ var LeaderBoardModel = Backbone.Model.extend({
                 return Backbone.sync(method, model, options);
             case 'read':
                 options.url = BASE_URL + '/score/v1/get_leaderboard';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 return Backbone.sync(method, model, options);
             default:

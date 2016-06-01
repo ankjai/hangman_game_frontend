@@ -4,6 +4,7 @@ var GameModel = Backbone.Model.extend({
             case 'create':
                 console.log('in create GameModel');
                 options.url = BASE_URL + '/game/v1/new_game';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 options.success = newGameModel.successCallback;
                 options.data = JSON.stringify({
@@ -14,11 +15,13 @@ var GameModel = Backbone.Model.extend({
             case 'update':
                 console.log('in update GameModel');
                 options.url = BASE_URL + '/game/v1/guess_char';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 return Backbone.sync(method, model, options);
             case 'delete':
                 console.log('in delete GameModel');
                 options.url = BASE_URL + '/game/v1/cancel_game';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 options.success = newGameModel.deleteSuccessCalbk;
                 options.data = JSON.stringify({
@@ -28,6 +31,7 @@ var GameModel = Backbone.Model.extend({
                 return Backbone.sync(method, model, options);
             case 'read':
                 console.log('fetching user active game');
+                options.contentType = 'application/json';
                 options.method = "POST";
                 return Backbone.sync(method, model, options);
             default:

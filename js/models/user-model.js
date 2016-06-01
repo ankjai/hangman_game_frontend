@@ -1,4 +1,4 @@
-BASE_URL = "http://localhost:8080/_ah/api";
+BASE_URL = "https://design-game.appspot.com/_ah/api";
 var globalUserIdCounter = 1;
 
 var UserModel = Backbone.Model.extend({
@@ -6,12 +6,14 @@ var UserModel = Backbone.Model.extend({
         switch (method) {
             case 'create':
                 options.url = BASE_URL + '/user/v1/create_user';
+                options.contentType = 'application/json';
                 options.success = user.successCallback;
                 options.error = user.errorCallback;
                 options.complete = user.completeCallback;
                 return Backbone.sync(method, model, options);
             case 'update':
                 options.url = BASE_URL + '/user/v1/update_user';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 options.data = JSON.stringify({
                     'current_user_name': model.attributes.user_name,
@@ -24,6 +26,7 @@ var UserModel = Backbone.Model.extend({
                 return Backbone.sync(method, model, options);
             case 'read':
                 options.url = BASE_URL + '/user/v1/get_user';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 options.data = JSON.stringify({
                     'user_name': model.attributes.user_name

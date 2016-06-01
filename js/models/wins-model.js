@@ -9,6 +9,7 @@ var WinsModel = Backbone.Model.extend({
                 return Backbone.sync(method, model, options);
             case 'read':
                 options.url = BASE_URL + '/game/v1/get_user_games';
+                options.contentType = 'application/json';
                 options.method = "POST";
                 options.data = JSON.stringify({
                     'user_name': user.get('user_name'),
