@@ -4,7 +4,7 @@ UI to test backend APIs created by https://github.com/ankjai/fullstack-nanodegre
 
 #### How to run the app
 ###### Python SimpleHTTPServer
-* Assumes env has python installed.
+* Assumes env has python installed, if not install it from [here](https://www.python.org/downloads/)
 * `cd` to project root `/hangman_game_frontend`
 * Do run this command `python -m SimpleHTTPServer 8080`
 * In browser goto `http://localhost:8080/`
