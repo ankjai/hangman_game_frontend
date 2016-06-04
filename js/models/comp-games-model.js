@@ -17,13 +17,10 @@ var CompGamesModel = Backbone.Model.extend({
                 options.method = "POST";
                 return Backbone.sync(method, model, options);
             case 'read':
-                console.log('in read CompGamesModel');
-                options.url = BASE_URL + '/game/v1/get_user_completed_games';
-                options.contentType = 'application/json';
-                options.method = "POST";
-                options.data = JSON.stringify({
+                options.url = BASE_URL + '/game/v1/get_user_completed_games?' + $.param({
                     'user_name': user.get('user_name')
                 });
+                options.method = 'GET';
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);

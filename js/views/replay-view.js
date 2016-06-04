@@ -8,10 +8,11 @@ var ReplayView = Backbone.View.extend({
         var that = this;
 
         // get game history
-        gameHistoryModel.save({
-            'urlsafe_key': $('#replay-select').val(),
-            'user_name': user.get('user_name')
-        }, {
+        gameHistoryModel.save({}, {
+            url: BASE_URL + '/game/v1/get_game_history?' + $.param({
+                'urlsafe_key': $('#replay-select').val(),
+                'user_name': user.get('user_name')
+            }),
             success: function(data, textStatus, jqXHR) {
                 // render game-replay-view
                 that.gameReplayView = new GameReplayView();

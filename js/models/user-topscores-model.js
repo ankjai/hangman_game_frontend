@@ -8,12 +8,10 @@ var TopScoresModel = Backbone.Model.extend({
             case 'delete':
                 return Backbone.sync(method, model, options);
             case 'read':
-                options.url = BASE_URL + '/score/v1/get_user_scores';
-                options.contentType = 'application/json';
-                options.method = "POST";
-                options.data = JSON.stringify({
+                options.url = BASE_URL + '/score/v1/get_user_scores?' + $.param({
                     'user_name': user.get('user_name')
                 });
+                options.method = 'GET';
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);

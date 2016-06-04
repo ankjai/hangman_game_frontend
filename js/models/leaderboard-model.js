@@ -8,9 +8,10 @@ var LeaderBoardModel = Backbone.Model.extend({
             case 'delete':
                 return Backbone.sync(method, model, options);
             case 'read':
-                options.url = BASE_URL + '/score/v1/get_leaderboard';
-                options.contentType = 'application/json';
-                options.method = "POST";
+                options.url = BASE_URL + '/score/v1/get_leaderboard?' + $.param({
+                    'fetch': 5
+                });
+                options.method = 'GET';
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);
@@ -22,4 +23,4 @@ var LeaderBoardModel = Backbone.Model.extend({
 var leaderboard = new LeaderBoardModel();
 
 // this will trigger 'read' method
-leaderboard.fetch({ data: JSON.stringify({ 'fetch': 5 }) });
+leaderboard.fetch();

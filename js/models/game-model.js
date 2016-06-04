@@ -19,20 +19,14 @@ var GameModel = Backbone.Model.extend({
                 options.method = "POST";
                 return Backbone.sync(method, model, options);
             case 'delete':
-                console.log('in delete GameModel');
-                options.url = BASE_URL + '/game/v1/cancel_game';
-                options.contentType = 'application/json';
-                options.method = "POST";
-                options.success = newGameModel.deleteSuccessCalbk;
-                options.data = JSON.stringify({
+                options.url = BASE_URL + '/game/v1/cancel_game?' + $.param({
                     'urlsafe_key': newGameModel.get('urlsafe_key'),
                     'user_name': user.get('user_name')
                 });
+                options.success = newGameModel.deleteSuccessCalbk;
                 return Backbone.sync(method, model, options);
             case 'read':
-                console.log('fetching user active game');
-                options.contentType = 'application/json';
-                options.method = "POST";
+                options.method = 'GET';
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);
@@ -43,8 +37,7 @@ var GameModel = Backbone.Model.extend({
         // after u get 'urlsafe_key'
         // do fetch this new game
         newGameModel.fetch({
-            url: BASE_URL + '/game/v1/get_game',
-            data: JSON.stringify({
+            url: BASE_URL + '/game/v1/get_game?' + $.param({
                 'urlsafe_key': data.urlsafe_key,
                 'user_name': user.get('user_name')
             })

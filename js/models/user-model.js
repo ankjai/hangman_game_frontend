@@ -14,7 +14,7 @@ var UserModel = Backbone.Model.extend({
             case 'update':
                 options.url = BASE_URL + '/user/v1/update_user';
                 options.contentType = 'application/json';
-                options.method = "POST";
+                options.method = 'PATCH';
                 options.data = JSON.stringify({
                     'current_user_name': model.attributes.user_name,
                     // updating only 'display_name' as this is the only
@@ -25,12 +25,10 @@ var UserModel = Backbone.Model.extend({
             case 'delete':
                 return Backbone.sync(method, model, options);
             case 'read':
-                options.url = BASE_URL + '/user/v1/get_user';
-                options.contentType = 'application/json';
-                options.method = "POST";
-                options.data = JSON.stringify({
+                options.url = BASE_URL + '/user/v1/get_user?' + $.param({
                     'user_name': model.attributes.user_name
                 });
+                options.method = 'GET';
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);
@@ -62,17 +60,15 @@ var UserModel = Backbone.Model.extend({
 
             // fetch active game
             newGameModel.fetch({
-                url: BASE_URL + '/game/v1/get_user_games',
-                data: JSON.stringify({
+                url: BASE_URL + '/game/v1/get_user_games?' + $.param({
                     'user_name': user.get('user_name'),
-                    "game_status": "IN_SESSION"
+                    'game_status': 'IN_SESSION'
                 }),
                 success: function(data, textStatus, jqXHR) {
                     if (data.attributes['games'] != undefined && !data.attributes['games'][0].game_over) {
                         // get existing game
                         newGameModel.fetch({
-                            url: BASE_URL + '/game/v1/get_game',
-                            data: JSON.stringify({
+                            url: BASE_URL + '/game/v1/get_game?' + $.param({
                                 'urlsafe_key': data.attributes['games'][0].game_urlsafe_key,
                                 'user_name': user.get('user_name')
                             })
