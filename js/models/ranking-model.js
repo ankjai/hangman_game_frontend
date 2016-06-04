@@ -8,13 +8,10 @@ var RankingModel = Backbone.Model.extend({
             case 'delete':
                 return Backbone.sync(method, model, options);
             case 'read':
-                console.log('in RankingModel read');
-                options.url = BASE_URL + '/score/v1/get_user_ranking';
-                options.contentType = 'application/json';
-                options.method = "POST";
-                options.data = JSON.stringify({
+                options.url = BASE_URL + '/score/v1/get_user_ranking?' + $.param({
                     'user_name': user.get('user_name')
                 });
+                options.method = 'GET';
                 return Backbone.sync(method, model, options);
             default:
                 console.error('Unknown method:', method);
