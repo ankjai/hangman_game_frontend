@@ -2,27 +2,26 @@ var GameModel = Backbone.Model.extend({
     sync: function(method, model, options) {
         switch (method) {
             case 'create':
-                console.log('in create GameModel');
-                options.url = BASE_URL + '/game/v1/new_game';
+                options.url = BASE_URL + '/game/v1/new_game?' + $.param({
+                    'user_name': user.get('user_name')
+                });
                 options.contentType = 'application/json';
-                options.method = "POST";
+                options.method = 'POST';
                 options.success = newGameModel.successCallback;
                 options.data = JSON.stringify({
-                    'user_name': user.get('user_name'),
                     'game_name': $.now().toString()
                 });
                 return Backbone.sync(method, model, options);
             case 'update':
-                console.log('in update GameModel');
-                options.url = BASE_URL + '/game/v1/guess_char';
                 options.contentType = 'application/json';
-                options.method = "POST";
+                options.method = 'POST';
                 return Backbone.sync(method, model, options);
             case 'delete':
                 options.url = BASE_URL + '/game/v1/cancel_game?' + $.param({
                     'urlsafe_key': newGameModel.get('urlsafe_key'),
                     'user_name': user.get('user_name')
                 });
+                options.method = 'PATCH';
                 options.success = newGameModel.deleteSuccessCalbk;
                 return Backbone.sync(method, model, options);
             case 'read':

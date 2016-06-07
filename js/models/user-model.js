@@ -12,11 +12,12 @@ var UserModel = Backbone.Model.extend({
                 options.complete = user.completeCallback;
                 return Backbone.sync(method, model, options);
             case 'update':
-                options.url = BASE_URL + '/user/v1/update_user';
+                options.url = BASE_URL + '/user/v1/update_user?' + $.param({
+                    'current_user_name': model.attributes.user_name
+                });
                 options.contentType = 'application/json';
                 options.method = 'PATCH';
                 options.data = JSON.stringify({
-                    'current_user_name': model.attributes.user_name,
                     // updating only 'display_name' as this is the only
                     // field from UI that can be updated
                     'display_name': model.attributes.display_name
