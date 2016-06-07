@@ -8,10 +8,12 @@ var GameView = Backbone.View.extend({
         //save newGameModel
         //this will trigger 'update'
         newGameModel.save({}, {
-            data: JSON.stringify({
-                'char': $('#char').val(),
+            url: BASE_URL + '/game/v1/guess_char?' + $.param({
                 'urlsafe_key': newGameModel.get('urlsafe_key'),
                 'user_name': user.get('user_name')
+            }),
+            data: JSON.stringify({
+                'char': $('#char').val()
             }),
             success: function(data, textStatus, jqXHR) {
                 var word = newGameModel.get('word');
